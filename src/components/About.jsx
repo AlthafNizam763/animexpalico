@@ -38,6 +38,7 @@ const About = () => {
         <div className="about-subtext">
           <p>Passionate developer with experience building full-stack web </p>
           <p className="text-gray-500">
+          
           applications using modern technologies like React.js, PHP and Next.js.
           Enjoy solving complex problems and learning new tools.
           </p>
