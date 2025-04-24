@@ -1,10 +1,8 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
-// import { TiLocationArrow } from "react-icons/ti";
 import { useEffect, useRef, useState } from "react";
 
-// import Button from "./Button";
 import VideoPreview from "./VideoPreview";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,7 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
-
   const [loading, setLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
 
@@ -31,36 +28,32 @@ const Hero = () => {
 
   const handleMiniVdClick = () => {
     setHasClicked(true);
-
     setCurrentIndex((prevIndex) => (prevIndex % totalVideos) + 1);
   };
 
-  useGSAP(
-    () => {
-      if (hasClicked) {
-        gsap.set("#next-video", { visibility: "visible" });
-        gsap.to("#next-video", {
-          transformOrigin: "center center",
-          scale: 1,
-          width: "100%",
-          height: "100%",
-          duration: 1,
-          ease: "power1.inOut",
-          onStart: () => nextVdRef.current.play(),
-        });
-        gsap.from("#current-video", {
-          transformOrigin: "center center",
-          scale: 0,
-          duration: 1.5,
-          ease: "power1.inOut",
-        });
-      }
-    },
-    {
-      dependencies: [currentIndex],
-      revertOnUpdate: true,
+  useGSAP(() => {
+    if (hasClicked) {
+      gsap.set("#next-video", { visibility: "visible" });
+      gsap.to("#next-video", {
+        transformOrigin: "center center",
+        scale: 1,
+        width: "100%",
+        height: "100%",
+        duration: 1,
+        ease: "power1.inOut",
+        onStart: () => nextVdRef.current.play(),
+      });
+      gsap.from("#current-video", {
+        transformOrigin: "center center",
+        scale: 0,
+        duration: 1.5,
+        ease: "power1.inOut",
+      });
     }
-  );
+  }, {
+    dependencies: [currentIndex],
+    revertOnUpdate: true,
+  });
 
   useGSAP(() => {
     gsap.set("#video-frame", {
@@ -82,11 +75,51 @@ const Hero = () => {
 
   const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
 
+  // ✨ Typing effect for title
+  const phrases = [
+    "altha<b>f</b> n",
+    "xpali<b>c</b>o"
+  ];
+
+  const [displayedText, setDisplayedText] = useState("");
+  const [fullTextIndex, setFullTextIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+
+  useEffect(() => {
+    const currentPhrase = phrases[fullTextIndex];
+    const strippedPhrase = currentPhrase.replace(/<[^>]*>/g, ""); // Remove tags for typing
+
+    if (charIndex <= strippedPhrase.length) {
+      const interval = setTimeout(() => {
+        let visibleChars = strippedPhrase.slice(0, charIndex);
+        const highlightedChar = currentPhrase.match(/<b>(.*?)<\/b>/)?.[1];
+        const highlightIndex = strippedPhrase.indexOf(highlightedChar);
+
+        if (highlightIndex !== -1 && charIndex > highlightIndex) {
+          visibleChars = visibleChars.replace(
+            highlightedChar,
+            `<b>${highlightedChar}</b>`
+          );
+        }
+
+        setDisplayedText(visibleChars);
+        setCharIndex((prev) => prev + 1);
+      }, 100);
+
+      return () => clearTimeout(interval);
+    } else {
+      setTimeout(() => {
+        setCharIndex(0);
+        setFullTextIndex((prev) => (prev + 1) % phrases.length);
+        setDisplayedText("");
+      }, 1500);
+    }
+  }, [charIndex, fullTextIndex]);
+
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
       {loading && (
         <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
-          {/* https://uiverse.io/G4b413l/tidy-walrus-92 */}
           <div className="three-body">
             <div className="three-body__dot"></div>
             <div className="three-body__dot"></div>
@@ -146,26 +179,19 @@ const Hero = () => {
 
         <div className="absolute left-0 top-0 z-40 size-full">
           <div className="mt-24 px-5 sm:px-10">
-            <h1 className="special-font hero-heading text-blue-100">
-              xpali<b>c</b>o
-            </h1>
-
+            <h1
+              className="special-font hero-heading text-blue-100"
+              dangerouslySetInnerHTML={{ __html: displayedText }}
+            />
             <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
-             Full-Stack Developer <br /> 
+              Full-Stack Developer <br />
             </p>
-
-            {/* <Button
-              id="watch-trailer"
-              title="Watch trailer"
-              leftIcon={<TiLocationArrow />}
-              containerClass="bg-yellow-300 flex-center gap-1"
-            /> */}
           </div>
         </div>
       </div>
 
       <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
-       D<b>E</b>VELOPER
+        D<b>E</b>VELOPER
       </h1>
     </div>
   );

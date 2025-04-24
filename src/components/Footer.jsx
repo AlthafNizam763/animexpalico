@@ -1,12 +1,11 @@
-import { FaDiscord, FaTwitter, FaWhatsapp, FaMailchimp, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaTwitter, FaWhatsapp, FaMailchimp, FaLinkedin, FaPinterestP } from "react-icons/fa";
 
 const socialLinks = [
-  { href: "/", icon: <FaWhatsapp /> },
-  { href: "/", icon: <FaDiscord /> },
-  { href: "/", icon: <FaTwitter /> },
-  { href: "/", icon: <FaMailchimp /> },
-  { href: "/", icon: <FaGithub /> },
-  { href: "/", icon: <FaLinkedin /> },
+  { href: "https://wa.me/9633146330", icon: <FaWhatsapp /> }, 
+  { href: "https://x.com/Alth_fx?t=Q-xW8GBOz9H4LJ8-iP_Vaw&s=0", icon: <FaTwitter /> }, 
+  { href: "mailto:althafnizam763@gmail.com", icon: <FaMailchimp /> },
+  { href: "https://pin.it/2x8eSIEnR", icon: <FaPinterestP /> }, 
+  { href: "https://www.linkedin.com/in/althaf-nizam-b27489260", icon: <FaLinkedin /> }, 
 ];
 
 const Footer = () => {
@@ -32,7 +31,7 @@ const Footer = () => {
         </div>
 
         <a
-          href="#privacy-policy"
+          href="/privacy-policy"
           className="text-center text-sm font-light hover:underline md:text-right"
         >
           Privacy Policy

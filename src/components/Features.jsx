@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { TiWeatherWindy } from "react-icons/ti";
 import { TiLocationArrow } from "react-icons/ti";
 
 export const BentoTilt = ({ children, className = "" }) => {
@@ -175,10 +176,12 @@ const Features = () => (
         <BentoTilt className="bento-tilt_2">
           <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
             <h1 className="bento-title special-font max-w-64 text-black">
-              M<b>o</b>re Sk<b>i</b>ll.
+              M<b>o</b>re Sk<b>i</b>ll
             </h1>
-
-            <TiLocationArrow className="m-5 scale-[5] self-end" />
+            <p className="text-black">
+            HTML, CSS, JavaScript, Bootstrap, TailwindCSS, PostgreSQL, Git & GitHub, REST API
+        </p>
+        <TiWeatherWindy className="m-3 scale-[3] self-end" />
           </div>
         </BentoTilt>
 
