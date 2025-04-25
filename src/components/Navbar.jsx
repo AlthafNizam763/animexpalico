@@ -2,7 +2,7 @@ import clsx from "clsx";
 import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
-import { TiLocationArrow } from "react-icons/ti";
+import { TiEyeOutline } from "react-icons/ti";
 
 import Button from "./Button";
 
@@ -76,7 +76,7 @@ const NavBar = () => {
             <Button
               id="product-button"
               title="Resume"
-              rightIcon={<TiLocationArrow />}
+              rightIcon={<TiEyeOutline />}
               containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
             />
           </div>
