@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://althafnizam763.github.io/animexpalico/",
+  "homepage": "https://althafnizam763.github.io/animexpalico",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
